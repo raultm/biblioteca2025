@@ -1,0 +1,13 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "biblioteca-springboot-run",
+            "type": "shell",
+            "command": "./mvnw clean spring-boot:run",
+            "runOptions": {
+                "runOn": "folderOpen"
+            }
+        }
+    ]
+}

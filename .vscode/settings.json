@@ -1,0 +1,19 @@
+{
+    "[java]": {
+        "editor.formatOnSave": true
+    },
+    "files.autoSave": "onFocusChange",
+    "java.compile.nullAnalysis.mode": "automatic",
+    "VsCodeTaskButtons.showCounter": true,
+    "VsCodeTaskButtons.tasks": [
+        {
+            "label": "$(debug-start) Spring-boot:run",
+            "task": "biblioteca-springboot-run",
+            "tooltip": "Ejecuta la aplicación",
+            "alignment": "left"
+        },
+    ],
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+    },  
+}

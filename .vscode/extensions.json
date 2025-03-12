@@ -1,0 +1,8 @@
+{
+    "recommendations": [
+        "vscjava.vscode-java-pack",
+        "vscjava.vscode-spring-initializr",
+        "vscode-icons-team.vscode-icons",
+        "spencerwmiles.vscode-task-buttons"
+    ]
+}
