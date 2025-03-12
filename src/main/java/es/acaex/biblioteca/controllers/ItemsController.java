@@ -58,7 +58,7 @@ public class ItemsController {
     @PostMapping("{itemId}/copies")
     public Copy crearCopia(@PathVariable("itemId") Long itemId) {
         return copiesRepository.save(Copy.builder()
-                .item(null)
+                .item(repository.findById(itemId).orElseThrow())
                 .acquiredAt(LocalDate.now())
                 .reservedBy(null)
                 .build());
