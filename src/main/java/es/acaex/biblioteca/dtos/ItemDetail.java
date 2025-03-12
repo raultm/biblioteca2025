@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 public class ItemDetail {
-    
+
     private Long id;
     private String type;
     private String title;
@@ -16,7 +16,7 @@ public class ItemDetail {
     private float duration;
     private int minimumAge;
 
-    public static ItemDetail fromItem(Item item){
+    public static ItemDetail fromItem(Item item) {
         ItemDetail itemDetail = new ItemDetail();
         itemDetail.setId(item.getId());
         itemDetail.setType(item.getType());
@@ -28,7 +28,7 @@ public class ItemDetail {
         return itemDetail;
     }
 
-    public static List<ItemDetail> fromItemsList(List<Item> items){
+    public static List<ItemDetail> fromItemsList(List<Item> items) {
         return items.stream().map(ItemDetail::fromItem).toList();
     }
 }

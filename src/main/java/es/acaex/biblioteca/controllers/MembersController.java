@@ -20,34 +20,35 @@ import es.acaex.biblioteca.repositories.MembersRepository;
 @RestController
 @RequestMapping("members")
 public class MembersController {
-    
-    @Autowired MembersRepository repository;
+
+    @Autowired
+    MembersRepository repository;
 
     @GetMapping
     public List<MemberDetail> findAll() {
         return MemberDetail.fromMembersList(repository.findAll());
     }
-    
+
     @PostMapping
     public MemberDetail save(MemberCreate memberCreate) {
         Member member = repository.save(memberCreate.toMember());
-        return MemberDetail.fromMember(member); 
+        return MemberDetail.fromMember(member);
     }
 
     @GetMapping("{memberId}")
-    public MemberDetail findByid(@PathVariable("memberId")Long memberId) {
+    public MemberDetail findByid(@PathVariable("memberId") Long memberId) {
         return MemberDetail.fromMember(repository.findById(memberId).orElseThrow());
     }
 
     @PutMapping("{memberId}")
-    public MemberDetail updateById(@PathVariable("memberId")Long memberId, MemberCreate memberCreate) {
+    public MemberDetail updateById(@PathVariable("memberId") Long memberId, MemberCreate memberCreate) {
         Member member = memberCreate.toMember();
         member.setId(memberId);
         return MemberDetail.fromMember(repository.save(member));
     }
 
     @DeleteMapping("{memberId}")
-    public void deleteById(@PathVariable("memberId")Long memberId) {
+    public void deleteById(@PathVariable("memberId") Long memberId) {
         repository.deleteById(memberId);
     }
 
