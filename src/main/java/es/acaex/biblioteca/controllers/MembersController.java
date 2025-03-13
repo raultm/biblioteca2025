@@ -3,7 +3,6 @@ package es.acaex.biblioteca.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +15,9 @@ import es.acaex.biblioteca.dtos.MemberCreate;
 import es.acaex.biblioteca.dtos.MemberDetail;
 import es.acaex.biblioteca.models.Member;
 import es.acaex.biblioteca.repositories.MembersRepository;
+import es.acaex.biblioteca.services.socios.BuscarPorIdSocioService;
+import es.acaex.biblioteca.services.socios.CrearSocioService;
+import es.acaex.biblioteca.services.socios.ListadoSociosService;
 
 @RestController
 @RequestMapping("members")
@@ -23,21 +25,26 @@ public class MembersController {
 
     @Autowired
     MembersRepository repository;
+    @Autowired
+    ListadoSociosService listadoSociosService;
+    @Autowired
+    CrearSocioService crearSocioService;
+    @Autowired
+    BuscarPorIdSocioService buscarPorIdSocioService;
 
     @GetMapping
     public List<MemberDetail> findAll() {
-        return MemberDetail.fromMembersList(repository.findAll());
+        return listadoSociosService.execute();
     }
 
     @PostMapping
     public MemberDetail save(MemberCreate memberCreate) {
-        Member member = repository.save(memberCreate.toMember());
-        return MemberDetail.fromMember(member);
+        return crearSocioService.execute(memberCreate);
     }
 
     @GetMapping("{memberId}")
     public MemberDetail findByid(@PathVariable("memberId") Long memberId) {
-        return MemberDetail.fromMember(repository.findById(memberId).orElseThrow());
+        return buscarPorIdSocioService.execute(memberId);
     }
 
     @PutMapping("{memberId}")

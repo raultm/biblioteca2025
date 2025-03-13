@@ -1,6 +1,5 @@
 package es.acaex.biblioteca.controllers;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,8 @@ import es.acaex.biblioteca.models.Copy;
 import es.acaex.biblioteca.models.Item;
 import es.acaex.biblioteca.repositories.CopiesRepository;
 import es.acaex.biblioteca.repositories.ItemsRepository;
+import es.acaex.biblioteca.services.copias.CrearCopiaService;
+import es.acaex.biblioteca.services.elementos.CrearElementoService;
 
 @RestController
 @RequestMapping("items")
@@ -27,10 +28,14 @@ public class ItemsController {
     ItemsRepository repository;
     @Autowired
     CopiesRepository copiesRepository;
+    @Autowired
+    CrearElementoService crearElementoService;
+    @Autowired
+    CrearCopiaService crearCopiaService;
 
     @PostMapping
     public ItemDetail save(ItemCreate itemCreate) {
-        return ItemDetail.fromItem(repository.save(itemCreate.toItem()));
+        return crearElementoService.execute(itemCreate);
     }
 
     @GetMapping
@@ -57,11 +62,7 @@ public class ItemsController {
 
     @PostMapping("{itemId}/copies")
     public Copy crearCopia(@PathVariable("itemId") Long itemId) {
-        return copiesRepository.save(Copy.builder()
-                .item(repository.findById(itemId).orElseThrow())
-                .acquiredAt(LocalDate.now())
-                .reservedBy(null)
-                .build());
+        return crearCopiaService.execute(itemId);
     }
 
     @GetMapping("{itemId}/copies")
