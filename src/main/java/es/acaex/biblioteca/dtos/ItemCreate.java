@@ -21,6 +21,7 @@ public class ItemCreate {
     private int duration;
     private int minimumAge;
     private LocalDate releasedAt;
+    private int numCopias;
 
     public Item toItem() {
         Item item = new Item();

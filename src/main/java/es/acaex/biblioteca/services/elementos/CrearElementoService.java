@@ -5,15 +5,26 @@ import org.springframework.stereotype.Service;
 
 import es.acaex.biblioteca.dtos.ItemCreate;
 import es.acaex.biblioteca.dtos.ItemDetail;
+import es.acaex.biblioteca.models.Item;
 import es.acaex.biblioteca.repositories.ItemsRepository;
+import es.acaex.biblioteca.services.copias.CrearCopiaService;
 
 @Service
 public class CrearElementoService {
 
     @Autowired
     ItemsRepository itemsRepository;
+    @Autowired
+    CrearCopiaService crearCopiaService;
 
     public ItemDetail execute(ItemCreate itemCreate) {
-        return ItemDetail.fromItem(itemsRepository.save(itemCreate.toItem()));
+
+        Item item = itemsRepository.save(itemCreate.toItem());
+
+        for (int i = 0; i < itemCreate.getNumCopias(); i++) {
+            crearCopiaService.execute(item.getId());
+        }
+
+        return ItemDetail.fromItem(item);
     }
 }

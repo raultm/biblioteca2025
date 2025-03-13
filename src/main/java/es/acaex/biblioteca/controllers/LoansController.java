@@ -45,8 +45,6 @@ public class LoansController {
     }
 
     @PutMapping("/{id}/return")
-    // @Operation(operationId = "terminarPrestamo", summary = "Terminar préstamo",
-    // tags = { "loans" })
     public ResponseEntity<String> terminarPrestamo(@PathVariable Long id) {
         Optional<Loan> optionalLoan = repository.findById(id);
         if (optionalLoan.isPresent()) {
@@ -59,6 +57,19 @@ public class LoansController {
             loan.setReturnedAt(new Date());
             repository.save(loan);
             return ResponseEntity.ok("Préstamo terminado exitosamente.");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping("/{id}/renovar")
+    public ResponseEntity<String> renovarPrestamo(@PathVariable Long id) {
+        Optional<Loan> optionalLoan = repository.findById(id);
+        if (optionalLoan.isPresent()) {
+            Loan loan = optionalLoan.get();
+            loan.setExpiredAt(addDays(loan.getExpiredAt(), 15));
+            repository.save(loan);
+            return ResponseEntity.ok("Préstamo renovado exitosamente.");
         } else {
             return ResponseEntity.notFound().build();
         }

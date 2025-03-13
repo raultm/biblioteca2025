@@ -19,6 +19,7 @@ import es.acaex.biblioteca.repositories.CopiesRepository;
 import es.acaex.biblioteca.repositories.ItemsRepository;
 import es.acaex.biblioteca.services.copias.CrearCopiaService;
 import es.acaex.biblioteca.services.elementos.CrearElementoService;
+import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
 @RequestMapping("items")
@@ -34,6 +35,8 @@ public class ItemsController {
     CrearCopiaService crearCopiaService;
 
     @PostMapping
+    @Operation(operationId = "crearElemento", summary = "Creación de Elemento a través de información de Creación", tags = {
+            "Elementos", "Prueba" })
     public ItemDetail save(ItemCreate itemCreate) {
         return crearElementoService.execute(itemCreate);
     }
