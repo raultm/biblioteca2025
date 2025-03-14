@@ -6,15 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.acaex.biblioteca.models.Copy;
-import es.acaex.biblioteca.repositories.CopiesRepository;
+import es.acaex.biblioteca.repositories.ItemsRepository;
 
 @Service
 public class ListarCopiasPorElementoIdService {
 
     @Autowired
-    CopiesRepository copiesRepository;
+    ItemsRepository itemsRepository;
 
     public List<Copy> execute(Long itemId) {
-        return copiesRepository.findById(itemId).orElseThrow().getCopies();
+        return itemsRepository.findById(itemId).orElseThrow().getCopies();
     }
 }
