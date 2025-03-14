@@ -8,4 +8,8 @@ import es.acaex.biblioteca.models.Loan;
 @Repository
 public interface LoansRepository extends JpaRepository<Loan, Long> {
 
+    boolean existsByReturnedAtIsNullAndCopyId(Long copyId);
+
+    long countByReturnedAtIsNullAndMemberId(Long memberId);
+
 }

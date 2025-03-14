@@ -3,6 +3,7 @@ package es.acaex.biblioteca.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import es.acaex.biblioteca.dtos.ItemDetail;
 import es.acaex.biblioteca.models.Copy;
 import es.acaex.biblioteca.services.copias.CrearCopiaService;
 import es.acaex.biblioteca.services.copias.ListarCopiasPorElementoIdService;
+import es.acaex.biblioteca.services.copias.ReservarCopiarPrestadaService;
 import es.acaex.biblioteca.services.elementos.ActualizarElementoService;
 import es.acaex.biblioteca.services.elementos.CrearElementoService;
 import es.acaex.biblioteca.services.elementos.DetalleElementoService;
@@ -41,6 +43,8 @@ public class ItemsController {
     CrearCopiaService crearCopiaService;
     @Autowired
     ListarCopiasPorElementoIdService listarCopiasPorElementoIdService;
+    @Autowired
+    ReservarCopiarPrestadaService reservarCopiarPrestadaService;
 
     @PostMapping
     @Operation(operationId = "crearElemento", summary = "Creación de Elemento a través de información de Creación", tags = {
@@ -78,5 +82,12 @@ public class ItemsController {
     @GetMapping("{itemId}/copies")
     public List<Copy> listarCopias(@PathVariable("itemId") Long itemId) {
         return listarCopiasPorElementoIdService.execute(itemId);
+    }
+
+    @PutMapping("{itemId}/copies/{copyId}/reservar/{memberId}")
+    public ResponseEntity<Object> reservarCopiar(@PathVariable("itemId") Long itemId,
+            @PathVariable("copyId") Long copyId,
+            @PathVariable("memberId") Long memberId) {
+        return reservarCopiarPrestadaService.execute(itemId, copyId, memberId);
     }
 }
