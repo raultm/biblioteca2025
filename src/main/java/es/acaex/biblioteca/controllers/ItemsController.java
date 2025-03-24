@@ -26,7 +26,7 @@ import es.acaex.biblioteca.services.elementos.ListarElementosService;
 import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
-@RequestMapping("items")
+@RequestMapping("elementos")
 public class ItemsController {
 
     @Autowired
