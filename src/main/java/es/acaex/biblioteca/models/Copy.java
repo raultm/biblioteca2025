@@ -1,7 +1,6 @@
 package es.acaex.biblioteca.models;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -19,26 +18,26 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity(name="copies")
+@Entity(name = "copies")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Copy {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
- 
+
     @ManyToOne
     @JoinColumn(name = "item_id", nullable = false)
     @JsonIgnore
     private Item item;
- 
-    @Column(name="acquired_at")
+
+    @Column(name = "acquired_at")
     @Temporal(TemporalType.DATE)
     private LocalDate acquiredAt;
- 
-    @Column(name="reserved_by")
+
+    @Column(name = "reserved_by")
     private String reservedBy;
 }

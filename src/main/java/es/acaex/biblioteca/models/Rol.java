@@ -1,9 +1,12 @@
 package es.acaex.biblioteca.models;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,4 +24,7 @@ public class Rol {
     private Long id;
 
     private String nombre;
+
+    @ManyToMany
+    private List<Member> members;
 }
